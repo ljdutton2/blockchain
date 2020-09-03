@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 node_identifier = str(uuid4()).replace('-', '')
 
-# Initialize blockchain
+# Initializing blockchain
 blockchain = Blockchain()
 
 @app.route('/mine', methods=['GET'])
@@ -44,7 +44,7 @@ def new_transaction():
     """Make transaction"""
     values = request.get_json()
 
-    # Checking if requested data is there
+    # Checking if required data is there
     required = ['sender', 'recipient', 'amount']
     if not all(k in values for k in required):
         return 'Missing Values', 400
@@ -62,9 +62,9 @@ def new_transaction():
     return jsonify(response), 201
 
 
-@app.route('/chain', methods=['GET'])
+@app.route('/full_chain', methods=['GET'])
 def full_chain():
-    """Return the full chain"""
+    
     response = {
         'chain': blockchain.chain,
         'length': len(blockchain.chain)
